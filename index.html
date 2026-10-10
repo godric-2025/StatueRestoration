@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>TODO</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&display=swap"
+        rel="stylesheet">
+
+</head>
+
+
+<body>
+
+
+<div class="container">
+
+
+<!-- Title -->
+<section class="hero">
+
+    <h1>
+        TODO
+    </h1>
+
+
+    <div class="authors">
+        Chun Guo</a><sup>1</sup>,
+        TODO
+    </div>
+
+
+    <div class="affiliation">
+    <sup>1</sup> Wangxuan Institute of Computer Technology,
+    Peking University
+    </div>
+
+
+    <div class="buttons">
+
+        <a class="button" href="#">
+            📄 Paper (Coming Soon)
+        </a>
+
+        <a class="button" href="#">
+            ◉ Code (Coming Soon)
+        </a>
+
+    </div>
+
+</section>
+
+
+
+
+<!-- Abstract -->
+
+<section>
+
+<h2>
+Abstract
+</h2>
+
+<div class="divider"></div>
+
+
+<p class="abstract">
+
+TODO
+<!-- To be specific, we address
+the fundamental problem that the inherent stochasticity of diffusion disrupts stereo consistency by proposing a stereo-consistent
+noise sampling optimization strategy, where we obtain the leftview noise by sampling an approximate optimal initial noise and
+optimizing the variance noise via a perceptual-consistency loss,
+while the right-view noise is obtained by disparity-aware warping.
+This approach drives the diffusion process toward outputs that
+satisfy stereo high-frequency detail consistency while delivering
+improved perceptual quality. To enhance stereo consistency at
+the structural and semantic levels, we design a Disparity-Aware
+State-Space Module, which performs stereo feature fusion via a
+sequentially bi-directional cross-scanning approach that is more
+suitable for the diffusion feature space than traditional attention
+operation. 
+Together,  -->
+
+
+</p>
+
+
+</section>
+
+
+<!-- Method -->
+
+<section>
+
+<h2>
+Method
+</h2>
+
+<div class="divider"></div>
+
+<div class="teaser-container">
+    <img class="teaser" src="assets/framework.png">
+
+    <div class="carousel-caption">
+        <strong>Figure 1</strong>
+        <span>TODO</span>
+    </div>
+</div>
+
+<p>
+The key idea of our proposed method include:
+</p>
+
+<ul>
+    <li>
+       TODO
+    </li>
+
+    <li>
+       TODO
+    </li>
+</ul>
+
+
+
+<div class="teaser-container">
+    <img class="teaser"
+src="assets/dassm.png">
+
+    <div class="carousel-caption">
+        <strong>Figure 2</strong>
+        TODO
+    </div>
+</div>
+
+
+</section>
+
+
+
+
+
+<!-- Results -->
+
+<section>
+
+
+<h2>
+Results
+</h2>
+
+TODO
+
+
+
+
+
+<footer>
+
+<div class="footer-content">
+
+    <a class="return-link" href="http://39.96.165.147/Projects.html">
+        ← Return to STRUCT Project Page
+    </a>
+
+
+    <div class="copyright">
+        Copyright © 2026 STRUCT
+    </div>
+
+</div>
+
+</footer>
+
+
+</div>
+
+<script>
+
+
+document.querySelectorAll('.results-slider').forEach(slider => {
+
+
+    const track = slider.querySelector('.carousel-track');
+
+    const items = slider.querySelectorAll('.carousel-item');
+
+    const prevButton = slider.querySelector('.carousel-button.prev');
+
+    const nextButton = slider.querySelector('.carousel-button.next');
+
+
+    let currentIndex = 0;
+
+
+
+    function updateCarousel(){
+
+        track.style.transform =
+        `translateX(-${currentIndex * 100}%)`;
+
+    }
+
+
+
+    nextButton.addEventListener('click', ()=>{
+
+
+        currentIndex++;
+
+
+        if(currentIndex >= items.length){
+
+            currentIndex = 0;
+
+        }
+
+
+        updateCarousel();
+
+
+    });
+
+
+
+
+    prevButton.addEventListener('click', ()=>{
+
+
+        currentIndex--;
+
+
+        if(currentIndex < 0){
+
+            currentIndex = items.length - 1;
+
+        }
+
+
+        updateCarousel();
+
+
+    });
+
+
+
+});
+
+function copyBibtex(){
+
+    const bibtex =
+    document.getElementById("bibtex").innerText;
+
+
+    navigator.clipboard.writeText(bibtex);
+
+
+    const button =
+    document.querySelector(".copy-button");
+
+
+    button.innerText = "Copied!";
+
+
+    setTimeout(()=>{
+
+        button.innerText = "Copy BibTeX";
+
+    },2000);
+
+}
+
+
+
+</script>
+
+</body>
+
+</html>
