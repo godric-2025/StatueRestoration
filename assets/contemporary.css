@@ -1,0 +1,64 @@
+/* Shared collection browser; the two designs supply their existing palettes. */
+.collection-switch,.contemporary-panel,.historical-panel{--collection-accent:var(--gold,var(--malachite));--collection-muted:var(--soft,var(--ink-2));--collection-surface:var(--bg2,var(--card));--collection-border:var(--gold,var(--ink-2))}
+.collection-switch{display:flex;flex-wrap:wrap;gap:10px 28px;border-bottom:1px solid var(--line);margin:0 0 28px}
+.collection-switch button{font:inherit;background:transparent;border:0;border-bottom:2px solid transparent;padding:12px 0;color:var(--collection-muted);cursor:pointer}
+.collection-switch button[aria-pressed=true]{color:var(--ink);border-bottom-color:var(--collection-accent)}
+.collection-switch small{font-size:.76em;opacity:.7;margin-left:6px}
+.contemporary-bar{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;margin-bottom:22px}
+.contemporary-bar h3,.historical-panel h3{margin:0;font:400 28px/1.25 var(--serif)}
+.contemporary-bar p{margin:6px 0 0;font-size:14px;color:var(--collection-muted)}
+.contemporary-layers{display:flex;border:1px solid var(--line)}
+.contemporary-layers button,.contemporary-more{font:inherit;font-size:14px;border:0;background:transparent;color:inherit;padding:9px 15px;cursor:pointer}
+.contemporary-layers button[aria-pressed=true]{background:var(--collection-surface);box-shadow:inset 0 -2px var(--collection-accent)}
+.contemporary-wall{columns:4 180px;column-gap:16px}
+.contemporary-piece{display:block;position:relative;width:100%;padding:0;margin:0 0 16px;break-inside:avoid;border:1px solid var(--collection-border);background:var(--collection-surface);cursor:zoom-in;overflow:hidden}
+.contemporary-piece img{display:block;width:100%;height:auto}
+.contemporary-piece:focus-visible{outline:2px solid var(--collection-accent);outline-offset:3px}
+.contemporary-piece .edge-reveal{position:absolute;inset:0;height:100%;opacity:0;transition:opacity .3s;object-fit:fill}
+.contemporary-piece:hover .edge-reveal,.contemporary-piece:focus-visible .edge-reveal{opacity:1}
+.contemporary-foot{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;border-top:1px solid var(--line);padding-top:20px;margin-top:16px}
+.contemporary-foot p,.contemporary-note,.historical-panel p{font-size:14px;color:var(--collection-muted);margin:0}
+.contemporary-more{border:1px solid var(--line)}
+.contemporary-note{margin-top:18px;max-width:88ch}
+.contemporary-note a{color:inherit;text-underline-offset:3px}
+.historical-panel{padding:20px 0 32px}.historical-panel p{margin-top:14px;max-width:70ch}
+dialog.contemporary-dialog{--collection-muted:var(--soft,var(--ink-2));--collection-surface:var(--bg2,var(--card));position:fixed;inset:0;margin:auto;width:min(1120px,94vw);height:fit-content;max-height:92svh;padding:0;background:var(--collection-surface);border:1px solid var(--line);border-radius:8px;color:var(--ink);overflow:auto}
+.contemporary-dialog::backdrop{background:rgba(10,9,7,.8)}
+.contemporary-dialog header{position:sticky;top:0;z-index:1;background:var(--collection-surface);display:flex;justify-content:space-between;align-items:center;gap:16px;padding:18px 22px;border-bottom:1px solid var(--line)}
+.contemporary-dialog h3{margin:0;font:400 25px var(--serif)}
+.contemporary-dialog header p{margin:4px 0 0;font-size:13px;color:var(--collection-muted)}
+.contemporary-dialog button{font:inherit;color:inherit;background:transparent;border:1px solid var(--line);padding:8px 14px;cursor:pointer}
+.contemporary-pair{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;padding:20px 22px}
+.contemporary-pair figure{margin:0;min-width:0}
+.contemporary-pair img{width:100%;height:auto;max-height:59svh;object-fit:contain}
+.contemporary-pair figcaption{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-top:10px;font-size:13px}
+.contemporary-pair a{color:inherit;text-underline-offset:3px}
+.contemporary-dialog footer{display:flex;align-items:center;justify-content:space-between;gap:14px;margin:18px 0 0;padding:14px 22px;border-top:1px solid var(--line);font-size:13px}
+body:has(.contemporary-dialog[open]){overflow:hidden}
+@media(max-width:600px){.contemporary-wall{columns:2;column-gap:10px}.contemporary-piece{margin-bottom:10px}.collection-switch{gap:8px 18px}.collection-switch button{font-size:14px}.collection-switch small{display:block;margin-left:0;text-align:left}.contemporary-bar h3{font-size:24px}.contemporary-pair{grid-template-columns:1fr;gap:20px;padding:16px}.contemporary-dialog header{padding:16px}.contemporary-dialog h3{font-size:21px}}
+@media(prefers-reduced-motion:reduce){.contemporary-piece .edge-reveal{transition:none}}
+[hidden]{display:none!important}
+
+/* A single light gold hairline unifies all three Museum collections. */
+.museum-collection{--dataset-frame:rgba(184,154,98,.55)}
+.museum-collection .contemporary-piece,.museum-collection .piece{border:1px solid var(--dataset-frame);box-shadow:none;overflow:hidden}
+.museum-collection .contemporary-piece:hover,.museum-collection .contemporary-piece:focus-visible,.museum-collection .piece:hover,.museum-collection .piece:focus-visible{border-color:rgba(216,189,133,.7);box-shadow:none}
+.photo-crop{position:relative;display:block;aspect-ratio:var(--photo-ratio);overflow:hidden}
+.photo-crop>img{position:absolute;max-width:none;max-height:none;object-fit:fill}
+.museum-collection .contemporary-pair .photo-crop{width:min(100%,calc(56svh * var(--photo-ratio)));margin:auto;border:1px solid var(--gold)}
+.photo-view-modes{display:flex;gap:20px;padding:12px 22px 0}
+.contemporary-dialog .photo-view-modes button{padding:6px 0;border:0;border-bottom:1px solid transparent;font-size:14px;color:var(--soft)}
+.contemporary-dialog .photo-view-modes button[aria-pressed=true]{color:var(--gold2);border-bottom-color:var(--gold)}
+.photo-comparison{padding:18px 22px}
+.photo-compare-frame{position:relative;width:min(100%,calc(55svh * var(--photo-ratio,1)));aspect-ratio:var(--photo-ratio,1);margin:auto;overflow:hidden;border:1px solid var(--gold);user-select:none;background:var(--bg2)}
+.photo-compare-frame img{position:absolute;max-width:none;max-height:none;object-fit:fill;pointer-events:none}
+.photo-compare-overlay{position:absolute;inset:0;clip-path:inset(0 50% 0 0)}
+.photo-compare-divider{position:absolute;inset:0 auto 0 50%;width:44px;transform:translateX(-50%);cursor:ew-resize;touch-action:none}
+.photo-compare-divider::before{content:"";position:absolute;inset:0 auto 0 50%;width:1px;background:#e9d2a2;box-shadow:0 0 3px #000}
+.photo-compare-divider span{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);display:grid;place-items:center;width:42px;height:42px;border-radius:50%;border:1px solid var(--gold);background:var(--bg2);color:var(--gold2);box-shadow:0 2px 12px #0005;font:400 23px var(--sans);pointer-events:none}
+.photo-compare-divider:focus-visible{outline:2px solid var(--gold2);outline-offset:-2px}
+.photo-compare-label{position:absolute;top:10px;padding:4px 8px;background:rgba(14,13,11,.86);border:1px solid var(--line);color:var(--gold2);font-size:12px;pointer-events:none}
+.photo-label-left{left:10px}.photo-label-right{right:10px}
+.photo-compare-caption{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;margin-top:14px;font-size:13px;color:var(--soft)}
+.photo-compare-caption div{display:flex;flex-wrap:wrap;gap:16px}.photo-compare-caption a{color:var(--gold2);text-underline-offset:3px}
+@media(max-width:600px){.photo-comparison{padding:16px}.photo-view-modes{padding-left:16px}.photo-compare-frame{width:min(100%,calc(51svh * var(--photo-ratio,1)))}.photo-compare-label{font-size:11px;padding:3px 6px}}

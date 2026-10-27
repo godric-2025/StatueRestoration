@@ -1,0 +1,38 @@
+ECHO · 02 Museum 网页部署说明
+
+本包为可直接部署的静态网页，包含 96 组新拍照片、150 组历史照片和 114 组合成三元组的网页预览，以及论文插图、图像对比等交互。
+完整尺寸的数据集通过外部链接发布，不放在本包中。当前各下载入口显示 To be done。
+
+一、部署到 GitHub Pages
+1. 解压，将本文件所在目录的全部内容放到负责人指定仓库的发布目录中。index.html 应直接位于仓库根目录，或用于发布的 docs 目录；不要再多套一层文件夹。保留 .nojekyll 文件。
+2. 提交并推送全部文件。无需安装 Node、运行构建命令或启动后台服务。
+3. 打开仓库 Settings → Pages，在 Build and deployment 中选择 Deploy from a branch，选择实际发布分支（通常是 main）及 /(root)；如果放在 docs 中则选择 /docs，然后保存。
+4. 等待部署完成，使用 GitHub Pages 给出的网页地址打开。资源均使用相对路径，适用于账户主页或带仓库名的项目主页。
+参考 GitHub 官方说明：https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site
+
+二、填写数据集下载链接
+只需修改 data/museum-downloads.json，保持有效 JSON 格式。
+
+如果只有一个包含全部数据的下载链接：
+  将链接填入 all，contemporary、historical、synthetic 保持空字符串。
+  各组下载按钮会自动使用这个总链接。
+
+如果有三个独立下载链接：
+  all 保持空字符串；分别将新拍、历史、合成数据的链接填入 contemporary、historical、synthetic。
+  各组总览和图片查看窗口会自动使用相应链接。
+
+空字符串会保留 To be done 占位，不会指向任何失效的本地下载地址。提交配置文件后即可更新网页。
+浏览器使用的其他 JSON 是网页内部索引，不需要作为独立数据文件提供下载。
+
+三、本地预览
+在本文件所在目录运行：
+  python3 -m http.server 8765
+再用浏览器打开 http://127.0.0.1:8765/ 。不要直接双击 index.html。
+预览图片已随包提供，不依赖原电脑、移动硬盘或项目专用服务器。网页字体通过 Google Fonts 加载；无法访问时使用系统字体。
+
+四、目录
+index.html                  网页入口
+assets/                     网页样式、交互和展示图片
+data/                       三组数据的展示索引及下载链接配置
+.nojekyll                   GitHub Pages 静态资源标记
+部署说明.txt                本文件

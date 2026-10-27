@@ -1,0 +1,7 @@
+.ablation-panels{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(8px,1.6vw,22px)}
+.ablation-panels figure{margin:0;min-width:0}
+.ablation-photo{position:relative}
+.ablation-photo img{display:block;width:100%;height:auto}
+.ablation-photo .ablation-markers{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.ablation-panels .ablation-label{margin:10px 0 0;padding:0;font:inherit;font-size:.92rem;line-height:1.5;text-align:center;color:var(--soft,var(--ink-2));letter-spacing:0;text-transform:none}
+.ablation-label sup,.ablation-label sub{font-size:.75em;line-height:0}
