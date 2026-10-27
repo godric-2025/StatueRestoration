@@ -7,6 +7,8 @@
   const dialog = $('#contemporary-dialog');
   if (!dialog) return;
   const comparison = $('#photo-comparison');
+  // Retain the original first page; further photographs are available in the full dataset.
+  const PREVIEW_LIMIT = 24;
   const cropWindows = dialog.dataset.cropWindows
     ? fetch(dialog.dataset.cropWindows).then(r => { if (!r.ok) throw new Error('Display windows unavailable'); return r.json(); }).then(d => d.crops)
     : Promise.resolve({});
@@ -50,15 +52,16 @@
   if (['contemporary', 'synthetic', 'historical'].includes(requested)) selectCollection(requested);
 
   function render(state) {
-    state.browser.innerHTML = state.items.slice(0, state.shown).map((it, i) => {
+    state.browser.innerHTML = state.items.map((it, i) => {
       const im = it.images[state.layer];
       const imageStyle = it.displayCrop ? ` style="${cropStyle(it)}"` : '';
       const images = `<img src="${root + im.thumbnail}" alt="${state.layer === 'photo' ? state.title + ' of Yungang Grottoes' : 'Extracted edge map of a Yungang carving'}" width="${im.width}" height="${im.height}" loading="lazy"${imageStyle}>${state.layer === 'photo' ? `<img class="edge-reveal" src="${root + it.images.edge.thumbnail}" alt="" loading="lazy"${imageStyle}>` : ''}`;
       return `<button class="contemporary-piece" data-photo="${i}" aria-label="View ${state.key} photograph and edge map">${it.displayCrop ? `<span class="photo-crop" style="--photo-ratio:${cropRatio(it)}">${images}</span>` : images}</button>`;
     }).join('');
     state.browser.querySelectorAll('button').forEach(b => b.addEventListener('click', () => open(state, +b.dataset.photo)));
-    state.count.textContent = `Showing ${Math.min(state.shown, state.items.length)} of ${state.items.length} photograph / edge-map pairs`;
-    state.more.hidden = state.shown >= state.items.length;
+    state.count.textContent = '';
+    state.count.hidden = true;
+    state.more.hidden = true;
   }
   function open(state, i) {
     if (!state.items.length) return;
@@ -93,20 +96,24 @@
   for (const [key, title] of [['contemporary', 'Contemporary photograph'], ['historical', 'Historical photograph']]) {
     const panel = $('#dataset-' + key), browser = $('#' + key + '-browser');
     if (!browser) continue;
-    const state = { key, title, browser, items: [], shown: 24, layer: 'photo', index: 0,
+    const state = { key, title, browser, items: [], total: 0, layer: 'photo', index: 0,
       more: $('#' + key + '-more'), count: $('#' + key + '-count') };
+    state.more.hidden = true;
+    const download = panel.querySelector('[data-dataset-download]');
+    if (download) download.dataset.downloadLabel = 'Full dataset';
+    window.EchoDownloads?.update(panel);
     panel.querySelectorAll('.contemporary-layers button').forEach(button => button.addEventListener('click', () => {
       state.layer = button.dataset.photoLayer;
       panel.querySelectorAll('.contemporary-layers button').forEach(b => b.setAttribute('aria-pressed', String(b === button)));
       render(state);
     }));
-    state.more.addEventListener('click', () => { state.shown += 24; render(state); });
     const data = fetch(root + 'data/' + key + '.json').then(r => {
       if (!r.ok) throw new Error('Collection unavailable');
       return r.json();
     });
     Promise.all([data, cropWindows]).then(([data, windows]) => {
-      state.items = data.items.map(it => windows[it.id] ? { ...it, displayCrop: windows[it.id] } : it);
+      state.total = data.items.length;
+      state.items = data.items.slice(0, PREVIEW_LIMIT).map(it => windows[it.id] ? { ...it, displayCrop: windows[it.id] } : it);
       render(state);
     }).catch(() => {
       browser.textContent = `The ${key} collection could not be loaded. Please refresh to try again.`;
